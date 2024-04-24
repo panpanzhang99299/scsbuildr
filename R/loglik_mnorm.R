@@ -20,7 +20,7 @@
 ## loglik_mnorm: Compute the logarithm of the likelihood of a sample point drawn 
 ## from a multivariate normal distribution 
 
-#' Fundamentals of Building an R Package
+#' Log of Multivariate Normal Density (Standard)
 #'
 #' This function derives the logarithm of the likelihood of a sample point drawn
 #' from a multivariate normal distribution
@@ -54,7 +54,7 @@ loglik_mnorm <- function(x, mu, Sigma, loglik = TRUE) {
   p <- length(mu)
   
   mydnorm <- function(y, mu, Sigma) {
-    exp(t(y - mu) %*% solve(Sigma) %*% (y - mu)) / (1 / 2 / pi) ^ (p / 2) /
+    exp((-1 / 2) * t(y - mu) %*% solve(Sigma) %*% (y - mu)) * (1 / 2 / pi) ^ (p / 2) /
       sqrt(det(Sigma))
   }
   

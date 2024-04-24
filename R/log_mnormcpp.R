@@ -17,16 +17,16 @@
 ## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ##
 
-#' @importFrom mvtnorm dmvnorm
+#' @importFrom Rcpp evalCpp
 NULL
 
-## log_mvtnorm: Compute the logarithm of the likelihood of a sample point drawn 
-## from a multivariate normal distribution based on **mvtnorm** package. 
+## log_mnormcpp: Compute the logarithm of the likelihood of a sample point drawn 
+## from a multivariate normal distribution using C++. 
 
-#' Log of Multivariate Normal Density (Based on Another Package)
+#' Log of Multivariate Normal Density (Based on C++)
 #'
 #' This function derives the logarithm of the likelihood of a sample point drawn
-#' from a multivariate normal distribution based on \code{mvtnorm} package. 
+#' from a multivariate normal distribution based on \bold{mvtnorm} package. 
 #'
 #' @param x is a vector of sample point or a matrix of sample points
 #' @param mu is the mean vector of multivariate normal distribution
@@ -49,25 +49,30 @@ NULL
 #' mydata <- cbind(c(1, 2), c(3, 4))
 #' mymu <- c(0, 0)
 #' mySigma <- diag(2)
-#' log_mvtnorm(x = mydata, mu = mymu, Sigma = mySigma)
+#' log_mnormcpp(x = mydata, mu = mymu, Sigma = mySigma)
 #' 
 
 
-log_mvtnorm <- function(x, mu, Sigma, loglik = TRUE) {
+log_mnormcpp <- function(x, mu, Sigma, loglik = TRUE) {
   p <- length(mu)
   
   if (!is.null(ncol(x))) {
-    res <- sapply(1:ncol(x), function(x.iter) {
-      mvtnorm::dmvnorm(x[, x.iter],
-                       mean = mu,
-                       sigma = Sigma,
-                       log = loglik)
+    res_temp <- sapply(1:ncol(x), function(x.iter) {
+      logdmvnorm(X = t(x[, x.iter]),
+                 mean = mu,
+                 Sigma = Sigma)
     })
   } else {
-    res <- mvtnorm::dmvnorm(x[, x.iter],
-                            mean = mu,
-                            sigma = Sigma,
-                            log = loglik)
+    res_temp <- logdmvnorm(X = x,
+                           mean = mu,
+                           Sigma = Sigma)
+  }
+  
+  
+  if (isTRUE(loglik)) {
+    res <- res_temp
+  } else {
+    res <- exp(res_temp)
   }
   
   return(res)

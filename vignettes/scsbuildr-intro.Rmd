@@ -1,0 +1,44 @@
+---
+title: "A Brief Introduction to scsbuildr"
+vignette: >
+  %\VignetteIndexEntry{scsbuildr-intro}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  rmarkdown::html_vignette:
+    number_sections: yes
+    toc: yes
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_knit$set(global.par = TRUE)
+knitr::opts_chunk$set(fig.width = 7, fig.height = 4)
+```
+
+<br/>
+
+# Introduction
+
+The R package **scsbuildr** is intended to provide a practical example demonstrating most fundamental elements for building an R package.
+
+<br/>
+
+<br/>
+
+# Functions
+
+The R package **scsbuildr** contains three example functions.
+
+## A Standard R Function
+
+The function `loglik_mnorm` is a standard R function example.
+
+## An R Function Based on Other Packages
+
+The function `log_mvtnorm` utilizes functions imported from other R packages.
+
+## An R Function Based on C++
+
+The function `log_mnormcpp` presents an example that interfaces C++.
+
+<br/>

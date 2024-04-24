@@ -33,3 +33,4 @@ GRTAGS
 GPATH
 .clang_complete
 .clangd
+inst/doc
