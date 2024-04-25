@@ -63,7 +63,7 @@ loglik_mnorm <- function(x, mu, Sigma, loglik = TRUE) {
       mydnorm(x[, x.iter], mu, Sigma)
     })
   } else {
-    res_temp <- mydnorm(x, mu, Sigma)
+    res_temp <- as.numeric(mydnorm(x, mu, Sigma))
   }
   
   if (isTRUE(loglik)) {

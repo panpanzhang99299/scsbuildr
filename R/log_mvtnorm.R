@@ -64,7 +64,7 @@ log_mvtnorm <- function(x, mu, Sigma, loglik = TRUE) {
                        log = loglik)
     })
   } else {
-    res <- mvtnorm::dmvnorm(x[, x.iter],
+    res <- mvtnorm::dmvnorm(x,
                             mean = mu,
                             sigma = Sigma,
                             log = loglik)
